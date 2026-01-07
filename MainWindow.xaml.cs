@@ -19,6 +19,9 @@ namespace flappybird_MT
     {
         DispatcherTimer gameTimer;
         double birdY = 200;
+        double velocityY = 0;
+        double gravity = 0.5;
+        double jumpStrength = -8;
 
         public MainWindow()
         {
@@ -26,7 +29,6 @@ namespace flappybird_MT
 
             Canvas.SetLeft(Bird, 100);
             Canvas.SetTop(Bird, birdY);
-
             gameTimer = new DispatcherTimer();
             gameTimer.Interval = TimeSpan.FromMilliseconds(20);
             gameTimer.Tick += GameLoop;
@@ -35,7 +37,9 @@ namespace flappybird_MT
 
         void GameLoop(object sender, EventArgs e)
         {
-            birdY += 2; 
+            velocityY += gravity;
+
+            birdY += velocityY;
             Canvas.SetTop(Bird, birdY);
         }
 
@@ -43,7 +47,7 @@ namespace flappybird_MT
         {
             if (e.Key == Key.Space)
             {
-                birdY -= 30; 
+                velocityY = jumpStrength;
             }
         }
     }
