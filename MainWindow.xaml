@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:flappybird_MT"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+         Title="Flappy Bird" Width="600" Height="400"
+        KeyDown="Window_KeyDown">
 
-    </Grid>
+    <Canvas Name="GameCanvas" Background="SkyBlue">
+        <Ellipse Name="Bird"
+                 Width="30"
+                 Height="30"
+                 Fill="Yellow"/>
+    </Canvas>
 </Window>
