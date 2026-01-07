@@ -7,11 +7,15 @@
         mc:Ignorable="d"
          Title="Flappy Bird" Width="600" Height="400"
         KeyDown="Window_KeyDown">
+    <Grid>
+        <Canvas Name="GameCanvas">
+        
+            <Canvas.Background>
+                <ImageBrush Stretch="Fill" ImageSource="/flappy_hatter.png"/>
+            </Canvas.Background>
 
-    <Canvas Name="GameCanvas" Background="SkyBlue">
-        <Ellipse Name="Bird"
-                 Width="30"
-                 Height="30"
-                 Fill="Yellow"/>
-    </Canvas>
+            <Image x:Name="Bird" Width="42" Height="30" Source="/flappy_bird.png" RenderTransformOrigin="0.5,0.5"/>
+
+        </Canvas>
+    </Grid>
 </Window>

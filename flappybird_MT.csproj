@@ -8,4 +8,14 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="flappy_bird.png" />
+    <None Remove="flappy_hatter.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="flappy_bird.png" />
+    <Resource Include="flappy_hatter.png" />
+  </ItemGroup>
+
 </Project>

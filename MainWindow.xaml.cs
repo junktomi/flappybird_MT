@@ -28,7 +28,7 @@ namespace flappybird_MT
             InitializeComponent();
 
             Canvas.SetLeft(Bird, 100);
-            Canvas.SetTop(Bird, birdY);
+            Canvas.SetTop(Bird, 200);
             gameTimer = new DispatcherTimer();
             gameTimer.Interval = TimeSpan.FromMilliseconds(20);
             gameTimer.Tick += GameLoop;
