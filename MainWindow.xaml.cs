@@ -27,6 +27,8 @@ namespace flappybird_MT
         Random rand = new Random();
         int CsoSzamlalo = 0;
 
+        bool gameOver = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -42,9 +44,16 @@ namespace flappybird_MT
 
         void GameLoop(object sender, EventArgs e)
         {
+            if (gameOver) return;
+
             velocityY += gravity;
             birdY += velocityY;
             Canvas.SetTop(Bird, birdY);
+
+            if (birdY < 0 || birdY + Bird.Height > GameCanvas.Height)
+            {
+                EndGame();
+            }
 
             CsoSzamlalo++;
             if (CsoSzamlalo > 100)
@@ -59,7 +68,7 @@ namespace flappybird_MT
 
                 if (UtkozesVizsgalat(cso.FelsoCso) || UtkozesVizsgalat(cso.AlsoCso))
                 {
-                    //jatekvege
+                    EndGame();
                 }
             }
         }
@@ -67,7 +76,7 @@ namespace flappybird_MT
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Space)
+            if (e.Key == Key.Space && !gameOver)
             {
                 velocityY = jumpStrength;
             }
@@ -120,14 +129,13 @@ namespace flappybird_MT
             Canvas.SetLeft(cso.AlsoCso, Canvas.GetLeft(cso.AlsoCso) - 3);
         }
 
-
         bool UtkozesVizsgalat(Image cso)
         {
             Rect birdRect = new Rect(
-                Canvas.GetLeft(Bird),
-                Canvas.GetTop(Bird),
-                Bird.Width,
-                Bird.Height);
+            Canvas.GetLeft(Bird) + 4,
+            Canvas.GetTop(Bird) + 4,
+            Bird.Width -  4,
+            Bird.Height - 4);
 
             Rect csoRect = new Rect(
                 Canvas.GetLeft(cso),
@@ -138,6 +146,11 @@ namespace flappybird_MT
             return birdRect.IntersectsWith(csoRect);
         }
 
-
+        void EndGame()
+        {
+            gameOver = true;
+            gameTimer.Stop();
+            MessageBox.Show("Meghaltál!");
+        }
     }
 }
