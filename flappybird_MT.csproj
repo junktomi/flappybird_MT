@@ -11,11 +11,19 @@
   <ItemGroup>
     <None Remove="flappy_bird.png" />
     <None Remove="flappy_hatter.png" />
+    <None Remove="Images\also_cso.png" />
+    <None Remove="Images\felso_cso.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="flappy_bird.png" />
     <Resource Include="flappy_hatter.png" />
+    <Resource Include="Images\also_cso.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\felso_cso.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

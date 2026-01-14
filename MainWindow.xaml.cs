@@ -18,7 +18,7 @@ namespace flappybird_MT
     public partial class MainWindow : Window
     {
         DispatcherTimer gameTimer;
-        double birdY = 200;
+        double birdY = 50;
         double velocityY = 0;
         double gravity = 0.5;
         double jumpStrength = -8;
@@ -43,11 +43,25 @@ namespace flappybird_MT
         void GameLoop(object sender, EventArgs e)
         {
             velocityY += gravity;
-
             birdY += velocityY;
             Canvas.SetTop(Bird, birdY);
 
-            
+            CsoSzamlalo++;
+            if (CsoSzamlalo > 100)
+            {
+                CsoGeneralas();
+                CsoSzamlalo = 0;
+            }
+
+            foreach (var cso in csovek)
+            {
+                CsoMozgatas(cso);
+
+                if (UtkozesVizsgalat(cso.FelsoCso) || UtkozesVizsgalat(cso.AlsoCso))
+                {
+                    //jatekvege
+                }
+            }
         }
 
 
@@ -69,7 +83,7 @@ namespace flappybird_MT
             {
                 Width = 60,
                 Height = topHeight,
-                Source = new BitmapImage(new Uri("/flappy_pipe_top.png", UriKind.Relative)),
+                Source = new BitmapImage(new Uri("Images/felso_cso.png", UriKind.Relative)),
                 Stretch = System.Windows.Media.Stretch.Fill
             };
 
@@ -77,7 +91,8 @@ namespace flappybird_MT
             {
                 Width = 60,
                 Height = GameCanvas.Height - topHeight - gap,
-                Source = new BitmapImage(new Uri("/flappy_pipe_bottom.png", UriKind.Relative)),
+                Source = new BitmapImage(new Uri("Images/also_cso.png", UriKind.Relative)),
+                
                 Stretch = System.Windows.Media.Stretch.Fill
             };
 
@@ -95,9 +110,15 @@ namespace flappybird_MT
                 FelsoCso = felsoCso,
                 AlsoCso = alsoCso
             });
+
         }
 
 
+        void CsoMozgatas(CsovekPar cso)
+        {
+            Canvas.SetLeft(cso.FelsoCso, Canvas.GetLeft(cso.FelsoCso) - 3);
+            Canvas.SetLeft(cso.AlsoCso, Canvas.GetLeft(cso.AlsoCso) - 3);
+        }
 
 
         bool UtkozesVizsgalat(Image cso)
@@ -117,11 +138,6 @@ namespace flappybird_MT
             return birdRect.IntersectsWith(csoRect);
         }
 
-        void CsoMozgatas(CsovekPar cso)
-        {
-            Canvas.SetLeft(cso.FelsoCso, Canvas.GetLeft(cso.FelsoCso) - 3);
-            Canvas.SetLeft(cso.AlsoCso, Canvas.GetLeft(cso.AlsoCso) - 3);
-        }
 
     }
 }
