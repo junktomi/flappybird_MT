@@ -23,12 +23,17 @@ namespace flappybird_MT
         double gravity = 0.5;
         double jumpStrength = -8;
 
+        List<CsovekPar> csovek = new List<CsovekPar>();
+        Random rand = new Random();
+        int CsoSzamlalo = 0;
+
         public MainWindow()
         {
             InitializeComponent();
 
             Canvas.SetLeft(Bird, 100);
             Canvas.SetTop(Bird, 200);
+
             gameTimer = new DispatcherTimer();
             gameTimer.Interval = TimeSpan.FromMilliseconds(20);
             gameTimer.Tick += GameLoop;
@@ -41,7 +46,10 @@ namespace flappybird_MT
 
             birdY += velocityY;
             Canvas.SetTop(Bird, birdY);
+
+            
         }
+
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
@@ -50,5 +58,70 @@ namespace flappybird_MT
                 velocityY = jumpStrength;
             }
         }
+
+
+        void CsoGeneralas()
+        {
+            int gap = 120;
+            int topHeight = rand.Next(50, 200);
+
+            Image felsoCso = new Image
+            {
+                Width = 60,
+                Height = topHeight,
+                Source = new BitmapImage(new Uri("/flappy_pipe_top.png", UriKind.Relative)),
+                Stretch = System.Windows.Media.Stretch.Fill
+            };
+
+            Image alsoCso = new Image
+            {
+                Width = 60,
+                Height = GameCanvas.Height - topHeight - gap,
+                Source = new BitmapImage(new Uri("/flappy_pipe_bottom.png", UriKind.Relative)),
+                Stretch = System.Windows.Media.Stretch.Fill
+            };
+
+            Canvas.SetLeft(felsoCso, GameCanvas.Width);
+            Canvas.SetTop(felsoCso, 0);
+
+            Canvas.SetLeft(alsoCso, GameCanvas.Width);
+            Canvas.SetTop(alsoCso, topHeight + gap);
+
+            GameCanvas.Children.Add(felsoCso);
+            GameCanvas.Children.Add(alsoCso);
+
+            csovek.Add(new CsovekPar
+            {
+                FelsoCso = felsoCso,
+                AlsoCso = alsoCso
+            });
+        }
+
+
+
+
+        bool UtkozesVizsgalat(Image cso)
+        {
+            Rect birdRect = new Rect(
+                Canvas.GetLeft(Bird),
+                Canvas.GetTop(Bird),
+                Bird.Width,
+                Bird.Height);
+
+            Rect csoRect = new Rect(
+                Canvas.GetLeft(cso),
+                Canvas.GetTop(cso),
+                cso.Width,
+                cso.Height);
+
+            return birdRect.IntersectsWith(csoRect);
+        }
+
+        void CsoMozgatas(CsovekPar cso)
+        {
+            Canvas.SetLeft(cso.FelsoCso, Canvas.GetLeft(cso.FelsoCso) - 3);
+            Canvas.SetLeft(cso.AlsoCso, Canvas.GetLeft(cso.AlsoCso) - 3);
+        }
+
     }
 }

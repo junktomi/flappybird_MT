@@ -8,7 +8,7 @@
          Title="Flappy Bird" Width="600" Height="400"
         KeyDown="Window_KeyDown">
     <Grid>
-        <Canvas Name="GameCanvas">
+        <Canvas Name="GameCanvas" Width="600" Height="400">
         
             <Canvas.Background>
                 <ImageBrush Stretch="Fill" ImageSource="/flappy_hatter.png"/>
