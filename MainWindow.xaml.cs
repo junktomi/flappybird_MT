@@ -150,7 +150,20 @@ namespace flappybird_MT
         {
             gameOver = true;
             gameTimer.Stop();
-            MessageBox.Show("Meghaltál!");
+
+            MessageBoxResult result = MessageBox.Show(
+                "Meghaltál!\nSzeretnéd újraindítani?",
+                "Game Over",
+                MessageBoxButton.YesNo);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                //játék újraindítása;
+            }
+            else
+            {
+                Application.Current.Shutdown();
+            }
         }
     }
 }
