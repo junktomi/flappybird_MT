@@ -11,6 +11,8 @@ namespace flappybird_MT
     {
         public Image FelsoCso { get; set; }
         public Image AlsoCso { get; set; }
+
+        public bool Pontozva { get; set; } = false;
     }
 }
 

@@ -42,6 +42,7 @@ namespace flappybird_MT
             gameTimer.Start();
         }
 
+        int pontszam = 0;
         void GameLoop(object sender, EventArgs e)
         {
             if (gameOver) return;
@@ -70,7 +71,22 @@ namespace flappybird_MT
                 {
                     EndGame();
                 }
+
+                double birdX = Canvas.GetLeft(Bird);
+
+                if (!cso.Pontozva &&
+                    Canvas.GetLeft(cso.FelsoCso) + cso.FelsoCso.Width < birdX)
+                {
+                    pontszam++;
+                    ScoreText.Text = pontszam.ToString();
+                    cso.Pontozva = true;
+
+                }
+
+
+
             }
+
         }
 
 
@@ -148,7 +164,8 @@ namespace flappybird_MT
 
         void RestartGame()
         {
-            
+            pontszam = 0;
+            ScoreText.Text = pontszam.ToString();
             birdY = 50;
             velocityY = 0;
             Canvas.SetLeft(Bird, 100);
@@ -167,25 +184,29 @@ namespace flappybird_MT
         }
 
 
-        void EndGame()
+       void EndGame()
         {
+            if (gameOver) return;
+
             gameOver = true;
             gameTimer.Stop();
 
-            MessageBoxResult result = MessageBox.Show(
-                "Meghaltál!\nSzeretnéd újraindítani?",
-                "Game Over",
-                MessageBoxButton.YesNo);
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                MessageBoxResult result = MessageBox.Show(
+                    "Meghaltál!\nSzeretnéd újraindítani?",
+                    "Game Over",
+                    MessageBoxButton.YesNo);
 
-            if (result == MessageBoxResult.Yes)
-            {
-                RestartGame();
-            }
-            else
-            {
-                Application.Current.Shutdown();
-            }
+                if (result == MessageBoxResult.Yes)
+                    RestartGame();
+                else
+                {
+                    Application.Current.Shutdown();
+                }
+            }));
         }
+
 
 
     }

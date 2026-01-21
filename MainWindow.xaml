@@ -16,6 +16,7 @@
 
             <Image x:Name="Bird" Width="42" Height="30" Source="/flappy_bird.png" RenderTransformOrigin="0.5,0.5"/>
 
+            <TextBlock x:Name="ScoreText" Text="0" FontSize="40" FontWeight="Bold" Foreground="White" Canvas.Left="10" Canvas.Top="10" Canvas.ZIndex="100"/>
         </Canvas>
     </Grid>
 </Window>
