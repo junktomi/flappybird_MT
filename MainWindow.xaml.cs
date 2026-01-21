@@ -146,6 +146,27 @@ namespace flappybird_MT
             return birdRect.IntersectsWith(csoRect);
         }
 
+        void RestartGame()
+        {
+            
+            birdY = 50;
+            velocityY = 0;
+            Canvas.SetLeft(Bird, 100);
+            Canvas.SetTop(Bird, birdY);
+
+            foreach (var cso in csovek)
+            {
+                GameCanvas.Children.Remove(cso.FelsoCso);
+                GameCanvas.Children.Remove(cso.AlsoCso);
+            }
+
+            csovek.Clear();
+            CsoSzamlalo = 0;
+            gameOver = false;
+            gameTimer.Start();
+        }
+
+
         void EndGame()
         {
             gameOver = true;
@@ -158,12 +179,14 @@ namespace flappybird_MT
 
             if (result == MessageBoxResult.Yes)
             {
-                //játék újraindítása;
+                RestartGame();
             }
             else
             {
                 Application.Current.Shutdown();
             }
         }
+
+
     }
 }
