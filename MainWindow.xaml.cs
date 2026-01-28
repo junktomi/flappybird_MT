@@ -17,11 +17,17 @@ namespace flappybird_MT
  
     public partial class MainWindow : Window
     {
+
+        List<Image> esoCseppek = new List<Image>();
+        bool esoAktiv = false;
+
         DispatcherTimer gameTimer;
         double birdY = 50;
         double velocityY = 0;
         double gravity = 0.5;
+        double normalJump = -8;
         double jumpStrength = -8;
+        double esoJump = -4;
 
         List<CsovekPar> csovek = new List<CsovekPar>();
         Random rand = new Random();
@@ -81,10 +87,32 @@ namespace flappybird_MT
                     ScoreText.Text = pontszam.ToString();
                     cso.Pontozva = true;
 
+                    if (pontszam == 2)
+                    {
+                        EsoInditasa();
+                    }
+
+
                 }
 
 
+            }
 
+            if (esoAktiv)
+            {
+                foreach (var csepp in esoCseppek)
+                {
+                    double y = Canvas.GetTop(csepp);
+                    y += 6;
+
+                    if (y > GameCanvas.Height)
+                    {
+                        y = rand.Next(-200, 0);
+                        Canvas.SetLeft(csepp, rand.Next(0, (int)GameCanvas.Width));
+                    }
+
+                    Canvas.SetTop(csepp, y);
+                }
             }
 
         }
@@ -181,6 +209,8 @@ namespace flappybird_MT
             CsoSzamlalo = 0;
             gameOver = false;
             gameTimer.Start();
+            EsoLeallitasa();
+            jumpStrength = normalJump;
         }
 
 
@@ -205,6 +235,43 @@ namespace flappybird_MT
                     Application.Current.Shutdown();
                 }
             }));
+        }
+
+        void EsoInditasa()
+        {
+            esoAktiv = true;
+            jumpStrength = esoJump;
+
+            for (int i = 0; i < 20; i++)
+            {
+                Image csepp = new Image
+                {
+                    Width = 15,
+                    Height = 45,
+                    Source = new BitmapImage(new Uri("Images/eso.png", UriKind.Relative)),
+                    Opacity = 0.7
+                };
+
+                Canvas.SetLeft(csepp, rand.Next(0, (int)GameCanvas.Width));
+                Canvas.SetTop(csepp, rand.Next(-400, 0));
+
+                Panel.SetZIndex(csepp, 1); 
+                GameCanvas.Children.Add(csepp);
+                esoCseppek.Add(csepp);
+            }
+        }
+
+        void EsoLeallitasa()
+        {
+            esoAktiv = false;
+            jumpStrength = normalJump;
+
+            foreach (var csepp in esoCseppek)
+            {
+                GameCanvas.Children.Remove(csepp);
+            }
+
+            esoCseppek.Clear();
         }
 
 
