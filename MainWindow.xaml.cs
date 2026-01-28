@@ -20,6 +20,10 @@ namespace flappybird_MT
 
         List<Image> esoCseppek = new List<Image>();
         bool esoAktiv = false;
+        double esoJump = -4;
+        bool kodAktiv = false;
+        int kodIdozito = 0;
+
 
         DispatcherTimer gameTimer;
         double birdY = 50;
@@ -27,7 +31,7 @@ namespace flappybird_MT
         double gravity = 0.5;
         double normalJump = -8;
         double jumpStrength = -8;
-        double esoJump = -4;
+        
 
         List<CsovekPar> csovek = new List<CsovekPar>();
         Random rand = new Random();
@@ -114,6 +118,20 @@ namespace flappybird_MT
                     Canvas.SetTop(csepp, y);
                 }
             }
+
+            kodIdozito++;
+
+            if (kodIdozito == 500)   
+            {
+                KodInditasa();
+            }
+
+            if (kodIdozito == 800) 
+            {
+                KodLeallitasa();
+                kodIdozito = 0;
+            }
+
 
         }
 
@@ -211,6 +229,8 @@ namespace flappybird_MT
             gameTimer.Start();
             EsoLeallitasa();
             jumpStrength = normalJump;
+            KodLeallitasa();
+            kodIdozito = 0;
         }
 
 
@@ -273,8 +293,17 @@ namespace flappybird_MT
 
             esoCseppek.Clear();
         }
+        void KodInditasa()
+        {
+            kodAktiv = true;
+            FogLayer.Opacity = 0.7;
+        }
 
-
+        void KodLeallitasa()
+        {
+            kodAktiv = false;
+            FogLayer.Opacity = 0.0;
+        }
 
     }
 }

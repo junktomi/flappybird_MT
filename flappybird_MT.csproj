@@ -14,6 +14,7 @@
     <None Remove="Images\also_cso.png" />
     <None Remove="Images\eso.png" />
     <None Remove="Images\felso_cso.png" />
+    <None Remove="Images\kod.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +27,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\felso_cso.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\kod.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
