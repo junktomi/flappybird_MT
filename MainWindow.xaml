@@ -18,13 +18,13 @@
 
             <TextBlock x:Name="ScoreText" Text="0" FontSize="40" FontWeight="Bold" Foreground="White" Canvas.Left="10" Canvas.Top="10" Canvas.ZIndex="100"/>
             <Image x:Name="FogLayer"
-               Width="600"
-               Height="400"
+               Width="900"
+               Height="600"
                Source="Images/kod.png"
                Opacity="0.0"
                IsHitTestVisible="False"
-               Canvas.Left="0"
-               Canvas.Top="0"
+               Canvas.Left="-150"
+               Canvas.Top="-100"
                Canvas.ZIndex="50"/> 
         </Canvas>
     </Grid>

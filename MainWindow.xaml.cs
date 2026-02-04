@@ -91,9 +91,13 @@ namespace flappybird_MT
                     ScoreText.Text = pontszam.ToString();
                     cso.Pontozva = true;
 
-                    if (pontszam == 2)
+                    if (pontszam == 2 || pontszam % 10 == 0)
                     {
                         EsoInditasa();
+                    }
+                    if (pontszam % 10 == 4)
+                    {
+                        EsoLeallitasa();
                     }
 
 
